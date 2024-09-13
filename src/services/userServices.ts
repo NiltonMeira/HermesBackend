@@ -14,6 +14,10 @@ export const creationUserService = async(payload: tUserCreation ) => {
     return await newUser.save()
 }
 
+export const getAllUsersService = async() => {
+    return User.find()
+}
+
 export const validateEmail = async (email: string) => {
     const users = await User.find(
         {"email": {"$regex": email, "$options": "i" }}
