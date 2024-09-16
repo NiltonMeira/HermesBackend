@@ -7,7 +7,6 @@ export const handleError = async (error: Error, req: Request, res: Response, nex
         
     }
 
-    console.error(error)
     return res.status(500).json({message: "Internal server error"})
     
 }

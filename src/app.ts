@@ -14,7 +14,7 @@ app.use(cors(
 
 app.use(express.json())
 
-app.use(userRouter)
+app.use("api/users",userRouter)
 
 app.use(handleError)
 
