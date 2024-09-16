@@ -1,6 +1,5 @@
 import express from 'express';
 import { creationUserController, deleteUserController, getUserByIdController, getUsersController, patchUserController} from '../controllers/userControllers';
-import { getUserByIDService } from '../services/userServices';
 
 const userRouter = express.Router()
 

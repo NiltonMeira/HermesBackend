@@ -1,6 +1,5 @@
 import { Request, Response} from "express"
 import { creationUserService, deleteUserService, getAllUsersService, getUserByIDService, getUserbyNameService, patchUserService } from "../services/userServices"
-import { ObjectId } from "mongoose"
 
 export const creationUserController = async (req: Request, res: Response) => {
     const service = await creationUserService(req.body)
