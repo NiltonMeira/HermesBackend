@@ -1,7 +1,7 @@
 import  bcrypt  from 'bcryptjs';
 import AppError from "../appError"
 import { User } from "../models/userModel"
-import { tUserCreation } from "../types/userTypes"
+import { TUser, tUserCreation, TUserUpdate } from "../types/userTypes"
 
 export const creationUserService = async(payload: tUserCreation ) => {
     if(!await validateEmail(payload.email).valueOf()) throw new AppError("Email ja cadastrado", 404) 
@@ -14,8 +14,46 @@ export const creationUserService = async(payload: tUserCreation ) => {
     return await newUser.save()
 }
 
-export const getAllUsersService = async() => {
+export const getAllUsersService = async () => {
     return User.find()
+}
+
+export const getUserByIDService = async (id: string) => {
+    const user = User.findById(id)
+
+    if(!user) throw new AppError("User not found", 404)
+        
+    return user
+}
+
+export const getUserbyNameService = async (name: string) => {
+    const users = await User.find(
+        { "name": { "$regex": name, "$options": "i" } }
+    )
+    console.log(users);
+
+    if(!users) throw new AppError("User not found", 404)
+
+    return users
+}
+
+export const deletePetService = async (id: string) => {
+    const user = User.find()
+
+    if(!user) throw new AppError("User not found", 404)
+
+    await User.deleteOne()
+
+}
+
+export const pathUserSercicew = async (payload: TUserUpdate, id: string) => {
+    const user = await User.findById(id)
+
+    if(!user) throw new AppError("User not found", 404)
+
+    user.set(payload)
+
+    return user.save()
 }
 
 export const validateEmail = async (email: string) => {
