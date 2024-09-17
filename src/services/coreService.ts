@@ -37,7 +37,7 @@ export const deleteCoreService = async (id: string) => {
     await core.deleteOne()
 }
 
-export const patchFamilyService = async (payload: TCoreUpdate, id: string) => {
+export const patchCoreService = async (payload: TCoreUpdate, id: string) => {
     const core =  await Core.findById(id)
 
     if(!core) throw new AppError("Core not found", 404)

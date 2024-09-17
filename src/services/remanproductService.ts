@@ -1,6 +1,6 @@
 import AppError from "../appError"
 import { RemanProduct } from "../models/remanproductModel"
-import { TRemanProduct } from "../types/remanproductType"
+import { TRemanProduct, TRemanProductUpdate } from "../types/remanproductType"
 
 export const creationRemanProductsService = async (payload: TRemanProduct ) => {
     const newRemanProduct = new RemanProduct(payload)
@@ -29,5 +29,20 @@ export const getRemanProductByNameService = async (name: string) => {
     return remanproducts
 }
 
-// export
+export const deleteRemanProductService = async (id: string) => {
+    const remanproduct = await RemanProduct.findById(id)
 
+    if(!remanproduct) throw new AppError("Reman Product not found", 404)
+
+    await remanproduct.deleteOne()
+}
+
+export const patchRemanProductService = async (payload: TRemanProductUpdate, id: string) => {
+    const remanproduct =  await RemanProduct.findById(id)
+
+    if(!remanproduct) throw new AppError("Core not found", 404)
+
+    remanproduct.set(payload)
+
+    return await remanproduct.save()
+}
