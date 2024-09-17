@@ -6,6 +6,7 @@ import { handleError } from "./middlewares/handleError"
 import authRouter from "./routes/authRoutes"
 import productRouter from "./routes/productRoutes"
 import familyRouter from "./routes/familyRoutes"
+import coreRoutes from "./routes/coreRoutes"
 
 const app = express()
 
@@ -21,6 +22,7 @@ app.use("/api/users",userRouter)
 app.use("/api/auth", authRouter)
 app.use("/api/products", productRouter)
 app.use("/api/familys", familyRouter)
+app.use("/api/cores", coreRoutes)
 
 app.use(handleError)
 
