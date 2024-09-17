@@ -31,7 +31,7 @@ export const getFamilytByNameService = async (name: string) => {
 }
 
 export const deleteFamilyService = async (id: string) => {
-    const family = Family.findById(id)
+    const family = await Family.findById(id)
 
     if(!family) throw new AppError("family not found", 404)
 
@@ -46,6 +46,6 @@ export const patchFamilyService = async (payload: TFamilyUpdate, id:string) => {
 
     family.set(payload)
     
-    return family.save()
+    return await family.save()
 
 }   
