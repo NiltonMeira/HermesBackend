@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { creationFamilyService, deleteFamilyService, getAllFamilysService, getFamilyByIdService, getFamilytByNameService, patchFamilyService } from "../services/familyService";
 
-export const crationFamilyController = async (req: Request, res: Response) => {
+export const creationFamilyController = async (req: Request, res: Response) => {
     const service = await creationFamilyService(req.body)
     res.status(201).json(service)
 }
@@ -26,7 +26,7 @@ export const deleteFamilyController = async (req: Request, res: Response) => {
     res.status(204).json(service)
 }   
 
-export const  pathFamilyController = async (req: Request, res: Response) => {
+export const  patchFamilyController = async (req: Request, res: Response) => {
     const service = await patchFamilyService(req.body, req.params.id)
     res.status(200).json(service)
 }
