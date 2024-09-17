@@ -1,8 +1,7 @@
 import  bcrypt  from 'bcryptjs';
 import AppError from "../appError"
 import { User } from "../models/userModel"
-import { TUser, tUserCreation, TUserUpdate } from "../types/userTypes"
-import { ObjectId } from 'mongoose';
+import {tUserCreation, TUserUpdate } from "../types/userTypes"
 
 export const creationUserService = async(payload: tUserCreation) => {
     if(!await validateEmail(payload.email).valueOf()) throw new AppError("Email ja cadastrado", 404) 
@@ -40,7 +39,7 @@ export const getUserbyNameService = async (name: string) => {
 }
 
 export const deleteUserService = async (id: string) => {
-    const user = User.find()
+    const user = User.findById(id)
 
     if(!user) throw new AppError("User not found", 404)
 
