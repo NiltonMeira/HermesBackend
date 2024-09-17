@@ -1,7 +1,7 @@
 import { sign } from "jsonwebtoken";
 import AppError from "../appError";
 import { User } from "../models/userModel";
-import bcrypt from 'bcrypt'; 
+import bycrypt from 'bcryptjs'
 
 type TLogin = {
     email: string;
@@ -13,7 +13,7 @@ export const authService = async (payload: TLogin) => {
 
     if (!user) throw new AppError("User not found", 404);
 
-    if (!bcrypt.compareSync(payload.password, user.password!)) {
+    if (!bycrypt.compareSync(payload.password, user.password!)) {
         throw new AppError("Password incorrect", 401);
     }
 
