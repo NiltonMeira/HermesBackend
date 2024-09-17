@@ -1,5 +1,5 @@
 import AppError from "../appError";
-import { Core } from "../models/codeModel";
+import { Core } from "../models/coreModel";
 import { TCoreCreation, TCoreUpdate } from "../types/coreType";
 
 export const creationCoreService = async (payload: TCoreCreation) => {
