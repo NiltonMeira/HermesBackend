@@ -39,7 +39,7 @@ export const deleteFamilyService = async (id: string) => {
 
 }
 
-export const patchProductService = async (payload: TFamilyUpdate, id:string) => {
+export const patchFamilyService = async (payload: TFamilyUpdate, id:string) => {
     const family = await Family.findById(id)
 
     if(!family) throw new AppError("family not found", 404)
