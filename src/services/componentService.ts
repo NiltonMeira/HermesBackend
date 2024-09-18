@@ -1,3 +1,4 @@
+import AppError from "../appError"
 import { Component } from "../models/componentModel"
 import { TComponentCreation } from "../types/componentType"
 
@@ -8,16 +9,53 @@ export const creationComponentService = async (payload: TComponentCreation) => {
 
 export const getComponentByIdService = async (id: string) => {
     const component = await Component.findById(id)
+
+    if (!component) throw new AppError("Component not found", 404)
     return component
 }
 
 export const getAllComponents = async () => {
-    return await Component.find()
+    const components = await Component.find()
+
+    if (!components) throw new AppError("Component not found", 404)
+
+    return components
 }
 
-export const getComponentByName = async (name: string) => {
+export const getComponentByNameService = async (name: string) => {
     const components = await Component.find(
+        { "name": { "$regex": name, "$options": "i" } }
+    )
 
+    if (!components) throw new AppError("Component not found", 404)
+
+    return components
+}  
+
+export const getComponentsByPartNumberService = async (partNUmber: string) => {
+    const components = await Component.find(
+        { "name": { "$regex": partNUmber, "$options": "i" } }
 
     )
-}  
+
+    if (!components) throw new AppError("Component not found", 404)
+
+    return components
+
+}
+
+export const deleteComponentService = async (id: string) => {
+    const component = Component.findById(id)
+
+    if(!component) throw new AppError("Component not found", 404)
+
+    await component.deleteOne()
+
+}
+
+
+export const patchComponentService = async () => {
+    const component = Component.find(
+        
+    )
+}
