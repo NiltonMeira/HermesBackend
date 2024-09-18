@@ -2,7 +2,7 @@ import { Component } from "../models/componentModel"
 import { TComponentCreation } from "../types/componentType"
 
 export const creationComponentService = async (payload: TComponentCreation) => {
-    const newComponent =  new Component(payload)
+    const newComponent = new Component(payload)
     return await newComponent.save()
 }
 
@@ -16,7 +16,8 @@ export const getAllComponents = async () => {
 }
 
 export const getComponentByName = async (name: string) => {
-const components = await Component.find(
-    
-) 
+    const components = await Component.find(
+
+
+    )
 }  
