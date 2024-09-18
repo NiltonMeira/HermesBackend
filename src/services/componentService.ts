@@ -1,6 +1,6 @@
 import AppError from "../appError"
 import { Component } from "../models/componentModel"
-import { TComponentCreation } from "../types/componentType"
+import { TComponentCreation, TComponentUpdate } from "../types/componentType"
 
 export const creationComponentService = async (payload: TComponentCreation) => {
     const newComponent = new Component(payload)
@@ -30,7 +30,7 @@ export const getComponentByNameService = async (name: string) => {
     if (!components) throw new AppError("Component not found", 404)
 
     return components
-}  
+}
 
 export const getComponentsByPartNumberService = async (partNUmber: string) => {
     const components = await Component.find(
@@ -47,15 +47,19 @@ export const getComponentsByPartNumberService = async (partNUmber: string) => {
 export const deleteComponentService = async (id: string) => {
     const component = Component.findById(id)
 
-    if(!component) throw new AppError("Component not found", 404)
+    if (!component) throw new AppError("Component not found", 404)
 
     await component.deleteOne()
 
 }
 
 
-export const patchComponentService = async () => {
-    const component = Component.find(
-        
-    )
+export const patchComponentService = async (payload: TComponentUpdate, id: string) => {
+    const component = await Component.findById(id)
+
+    if(!component) throw new AppError("Component not found", 404)
+
+    component.set(payload)
+    
+    return component.save()
 }
