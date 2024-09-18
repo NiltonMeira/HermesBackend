@@ -14,7 +14,7 @@ export const getComponentByIdService = async (id: string) => {
     return component
 }
 
-export const getAllComponents = async () => {
+export const getAllComponentsService = async () => {
     const components = await Component.find()
 
     if (!components) throw new AppError("Component not found", 404)
