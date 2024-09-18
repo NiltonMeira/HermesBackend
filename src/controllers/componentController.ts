@@ -7,7 +7,7 @@ export const creationComponentController = async (req: Request, res: Response) =
     res.status(201).json(service)
 }
 
-export const getComponentById = async(req: Request, res: Response) => {
+export const getComponentByIdController = async(req: Request, res: Response) => {
     const service = getComponentByIdService(req.params.id)
     res.status(200).json(service)
 }
@@ -23,7 +23,7 @@ export const getComponentsController = async (req: Request, res: Response) => {
 }
 
 export const getPartNumberController = async (req: Request, res: Response) => {
-    const service = await getComponentsByPartNumberService(req.params.id)
+    const service = await getComponentsByPartNumberService(req.params.part)
     res.status(200).json(service)
 }
 
