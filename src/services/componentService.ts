@@ -34,7 +34,7 @@ export const getComponentByNameService = async (name: string) => {
 
 export const getComponentsByPartNumberService = async (partNUmber: string) => {
     const components = await Component.find(
-        { "name": { "$regex": partNUmber, "$options": "i" } }
+        { "partNumber": { "$regex": partNUmber, "$options": "i" } }
 
     )
 
