@@ -6,6 +6,8 @@ import {tUserCreation, TUserUpdate } from "../types/userTypes"
 export const creationUserService = async(payload: tUserCreation) => {
     if(!await validateEmail(payload.email).valueOf()) throw new AppError("Email ja cadastrado", 404) 
     if(!(await validateEdv(payload.edv)).valueOf()) throw new AppError("EDV ja cadastrado", 404)
+
+    validatePassword(payload.password)
     
     payload.password = await hashPassword(payload.password);
 
