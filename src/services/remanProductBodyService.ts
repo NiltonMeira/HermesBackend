@@ -1,9 +1,6 @@
 import AppError from "../appError"
-import { Body } from "../models/bodyModel"
 import { RemanProductBody } from "../models/remanProductBodyModel"
-import { TBodyCreation } from "../types/bodyType"
 import { TRemanProductBodyCreation, TRemanProductBodyUpdate } from "../types/remanProductBodyType"
-import { tUserCreation } from "../types/userTypes"
 
 export const creationRemanProductBodyService = async (payload: TRemanProductBodyCreation) => {
     const newRPB = new RemanProductBody(payload)
@@ -26,16 +23,6 @@ export const getAllRemanProductBodyService = async () => {
     console.log(newRPB);
     
     return await newRPB
-}
-
-export const getRemanProductBodyByNameService = async (name: string) => {
-    const newRPB = await RemanProductBody.find(
-        { "name": { "$regex": name, "$options": "i" } }
-    )
-
-    console.log(newRPB)
-
-    return newRPB
 }
 
 export const getRPBByRemanProductIdService = async (remanProductId: string) => {
