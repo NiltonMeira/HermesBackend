@@ -13,11 +13,19 @@ export const creationUserService = async(payload: tUserCreation) => {
 
     const newUser = new User(payload)
     newUser.role = 1
+
+    console.log(newUser);
+     
     return await newUser.save()
 }
 
 export const getAllUsersService = async () => {
-    return await User.find()
+    const users = User.find()
+    
+    console.log(users);
+    
+
+    return await users
 }
 
 export const getUserByIDService = async (id: String) => {
@@ -25,7 +33,8 @@ export const getUserByIDService = async (id: String) => {
     const user = await User.findById(id).exec()
 
     if(!user) throw new AppError("User not found", 404)
-        
+    
+    console.log(user);    
     return user
 }
 
@@ -33,6 +42,7 @@ export const getUserbyNameService = async (name: string) => {
     const users = await User.find(
         { "name": { "$regex": name, "$options": "i" } }
     )
+
     console.log(users);    
 
     if(!users) throw new AppError("User not found", 404)
@@ -44,9 +54,10 @@ export const deleteUserService = async (id: string) => {
     const user = User.findById(id)
 
     if(!user) throw new AppError("User not found", 404)
+    
+    await user.deleteOne()
 
-    await User.deleteOne()
-
+    return "User deleted"
 }
 
 export const patchUserService = async (payload: TUserUpdate, id: string) => {
