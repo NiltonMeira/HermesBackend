@@ -77,3 +77,22 @@ export const hashPassword = async(password: string) => {
     const salt = await bcrypt.genSalt(12)
     return bcrypt.hash(password, salt)
 }
+
+export const validatePassword = (password: string) => {
+    if(password.length < 8) throw new AppError("The password is too short", 404)
+
+    if(!hasNumbers(password)) throw new AppError("The password must contain numbers")
+}
+
+const hasNumbers = (password: string): boolean => {
+    return /\d/.test(password);
+  };
+
+const hasUpperCase = (password: string) => {
+    return /[A-Z]/.test(password);
+}
+
+const hasSpecialChar = (password: string) => {
+    
+}
+
