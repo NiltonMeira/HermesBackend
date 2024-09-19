@@ -39,12 +39,12 @@ export const getAllRPCController = async (req: Request, res: Response) => {
     return getAllRemanProductBodyService()
 }
 
-export const deleteRPCComponent = async (req: Request, res: Response) => {
+export const deleteRPCController = async (req: Request, res: Response) => {
     const service = await deleteRPCService(req.params.id)
     res.status(204).json(service)
 }
 
-export const patchRPBComponent = async (req: Request, res: Response) => {
+export const patchRPCController = async (req: Request, res: Response) => {
     const service = await patchRPCService(req.body, req.params.id)
     res.status(200).json(service)
 

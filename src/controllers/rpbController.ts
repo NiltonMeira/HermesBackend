@@ -31,19 +31,19 @@ export const getAllRPBController = async (req: Request, res: Response) => {
     })
 
     queries.forEach(element =>{
-        if((element.param)) return await element.service(element.param)
+        if((element.param)) return element.service(element.param)
 
     })
 
     return getAllRemanProductBodyService()
 }
 
-export const deleteRPBComponent = async (req: Request, res: Response) => {
+export const deleteRPBController = async (req: Request, res: Response) => {
     const service = await deleteRemanProductBodyService(req.params.id)
     res.status(204).json(service)
 }
 
-export const patchRPBComponent = async (req: Request, res: Response) => {
+export const patchRPBController = async (req: Request, res: Response) => {
     const service = await patchRemanProductBodyService(req.body, req.params.id)
     res.status(200).json(service)
 

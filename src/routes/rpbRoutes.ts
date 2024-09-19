@@ -1,11 +1,13 @@
 import express from "express";
-import { creationRPBController, getAllRPBController, getRPBByIdController } from "../controllers/rpbController";
+import { creationRPBController, deleteRPBController, getAllRPBController, getRPBByIdController, patchRPBController } from "../controllers/rpbController";
+import { patchBodyService } from "../services/bodyService";
 
 const rpbRouter = express.Router()
 
 rpbRouter.post("", creationRPBController)
 rpbRouter.get("", getAllRPBController)
 rpbRouter.get("/:id", getRPBByIdController)
-rpbRouter.get("/body")
+rpbRouter.delete("/:id", deleteRPBController)
+rpbRouter.patch("/:id", patchRPBController )
 
 export default rpbRouter
