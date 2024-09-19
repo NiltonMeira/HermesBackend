@@ -81,7 +81,11 @@ export const hashPassword = async(password: string) => {
 export const validatePassword = (password: string) => {
     if(password.length < 8) throw new AppError("The password is too short", 404)
 
-    if(!hasNumbers(password)) throw new AppError("The password must contain numbers")
+    if(!hasNumbers(password)) throw new AppError("The password must contain numbers", 404)
+
+    if(!hasUpperCase(password)) throw new AppError("The password must contain uppercase Letters", 404)
+
+    if(!hasSpecialChar(password)) throw new AppError("The password must contain special char")
 }
 
 const hasNumbers = (password: string): boolean => {
@@ -93,6 +97,6 @@ const hasUpperCase = (password: string) => {
 }
 
 const hasSpecialChar = (password: string) => {
-    
+    return /[!@#$%^&*(),.?":{}|<>]/.test(password)
 }
 
