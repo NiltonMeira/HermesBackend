@@ -38,9 +38,19 @@ export const getRemanProductBodyByNameService = async (name: string) => {
     return newRPB
 }
 
-export const getRemanProductBodyByPartNumberService = async (partNumber: string) => {
+export const getRPBByRemanProductIdService = async (remanProductId: string) => {
     const newRPB = await RemanProductBody.find(
-        {"partNumber": {"$regex": partNumber, "$options": "i"}}
+        {"remanProductId": {"$regex": remanProductId, "$options": "i"}}
+    )
+
+    console.log(newRPB);
+
+    return newRPB
+}
+
+export const getRPBByBodyIdService = async (bodyId: string) => {
+    const newRPB = await RemanProductBody.find(
+        {"bodyId": {"$regex": bodyId, "$options": "i"}}
     )
 
     console.log(newRPB);
