@@ -12,18 +12,29 @@ export const getRPBByIdController = async (req: Request, res: Response) => {
 }
 
 export const getAllRPBController = async (req: Request, res: Response) => {
-    const service = await getAllRemanProductBodyService()
-    res.status(200).json(service)
-}
+    interface smartRequest {
+        param: string,
+        service: Function
+    }
 
-export const getRPBByBodyIdController = async (req: Request, res: Response) => {
-    const service = await getRPBByBodyIdService(req.params.id)
-    res.status(200).json(service)
-}
+    let queries: smartRequest[] = []
 
-export const getRPBByRemanProductIdController = async (req: Request, res: Response) => {
-    const service = await getRPBByRemanProductIdService(req.params.id)
-    res.status(200).json(service)
+    queries.push({
+        "param": String(req.query.bodyId),
+        "service": getRPBByBodyIdService
+    })
+
+    queries.push({
+        "param": String(req.query.remanProductId),
+        "service": getRPBByRemanProductIdService
+    })
+
+    queries.forEach(element =>{
+        if((element.param)) return element.service(element.param)
+
+    })
+
+    return getAllRemanProductBodyService()
 }
 
 export const deleteRPBComponent = async (req: Request, res: Response) => {
