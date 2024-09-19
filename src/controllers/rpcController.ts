@@ -13,7 +13,7 @@ export const getRPCByIdController = async (req: Request, res: Response) => {
     res.status(200).json(service)
 }
 
-export const getAllRPCController = async (req: Request, res: Response) => {
+export const getRPCController = async (req: Request, res: Response) => {
     interface smartRequest {
         param: string,
         service: Function

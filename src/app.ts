@@ -11,6 +11,7 @@ import remanProductRouter from "./routes/remanProductRoutes"
 import componentRoutes from "./routes/componentsRoutes"
 import bodyRouter from "./routes/bodyRoutes"
 import rpbRouter from "./routes/rpbRoutes"
+import rpcRouter from "./routes/rpcRoutes"
 
 const app = express()
 
@@ -31,6 +32,8 @@ app.use("/api/remanProduct", remanProductRouter)
 app.use("api/components", componentRoutes )
 app.use("api/components", bodyRouter )
 app.use("api/rpb", rpbRouter)
+app.use("api/rpc", rpcRouter)
+
 
 app.use(handleError)
 
