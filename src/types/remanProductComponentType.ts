@@ -4,5 +4,5 @@ export type TRemanProductCoponents = {
     componentId : string
 }
 
-export type TRemanProductBodyCreation = Omit<TRemanProductCoponents, "id">
-export type TRemanProductBodyUpdate = Partial<TRemanProductCoponents>
+export type TRemanProductComponentCreation = Omit<TRemanProductCoponents, "id">
+export type TRemanProductComponentUpdate = Partial<TRemanProductCoponents>

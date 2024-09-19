@@ -2,16 +2,17 @@ import AppError from "../appError"
 import { Body } from "../models/bodyModel"
 import { RemanProductBody } from "../models/remanProductBodyModel"
 import { TBodyCreation } from "../types/bodyType"
+import { TRemanProductBodyCreation, TRemanProductBodyUpdate } from "../types/remanProductBodyType"
 import { tUserCreation } from "../types/userTypes"
 
-export const creationRemanProductBodyService = async (payload: TBodyCreation) => {
+export const creationRemanProductBodyService = async (payload: TRemanProductBodyCreation) => {
     const newRPB = new RemanProductBody(payload)
     console.log(newRPB)
     return await newRPB.save()
 }
 
 export const getRemanProductBodyByIdService = async (id: string) => {
-    const newRPB = await Body.findById(id)
+    const newRPB = await RemanProductBody.findById(id)
 
     if(!newRPB) throw new AppError("RemanProductBodyService not found", 404)
     
@@ -58,7 +59,7 @@ export const deleteRemanProductBodyService = async (id: string) => {
     await newRPB.deleteOne()
 }
 
-export const patchRemanProductBodyService = async (payload: tUserCreation, id: string) => {
+export const patchRemanProductBodyService = async (payload: TRemanProductBodyUpdate, id: string) => {
     const newRPB = await RemanProductBody.findById(id)
 
     
