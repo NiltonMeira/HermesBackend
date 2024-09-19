@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import { creationBodyService, deleteBodyService, getAllBodiesService, getBodyByIdService, getBodyByNameService, getBodyByPartNumberService, patchBodyService } from "../services/bodyService"
 
-export const crationBodycontroller = async (req: Request, res: Response) => {
+export const creationBodycontroller = async (req: Request, res: Response) => {
     const service =  await creationBodyService(req.body)
     res.status(201).json(service)
 }

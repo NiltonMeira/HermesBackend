@@ -9,6 +9,7 @@ import familyRouter from "./routes/familyRoutes"
 import coreRoutes from "./routes/coreRoutes"
 import remanProductRouter from "./routes/remanProductRoutes"
 import componentRoutes from "./routes/componentsRoutes"
+import bodyRouter from "./routes/bodyRoutes"
 
 const app = express()
 
@@ -27,6 +28,7 @@ app.use("/api/familys", familyRouter)
 app.use("/api/cores", coreRoutes)
 app.use("/api/remanProduct", remanProductRouter)
 app.use("api/components", componentRoutes )
+app.use("api/components", bodyRouter )
 
 app.use(handleError)
 
