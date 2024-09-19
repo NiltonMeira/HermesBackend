@@ -20,12 +20,12 @@ export const getAllRPBController = async (req: Request, res: Response) => {
     let queries: smartRequest[] = []
 
     queries.push({
-        "param": String(req.query.bodyId),
+        "param": String(await req.query.bodyId),
         "service": getRPBByBodyIdService
     })
 
     queries.push({
-        "param": String(req.query.remanProductId),
+        "param": String(await req.query.remanProductId),
         "service": getRPBByRemanProductIdService
     })
 
