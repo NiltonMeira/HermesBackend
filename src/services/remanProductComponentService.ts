@@ -2,13 +2,13 @@ import AppError from "../appError"
 import { RemanProductComponent } from "../models/remanProductComponentModel"
 import { TRemanProductComponentCreation, TRemanProductComponentUpdate } from "../types/remanProductComponentType"
 
-export const creationRemanProductComponent = async (payload: TRemanProductComponentCreation) => {
+export const creationRPCService = async (payload: TRemanProductComponentCreation) => {
     const newRPC = new RemanProductComponent(payload)
     console.log(newRPC)
     return await newRPC.save()
 }
 
-export const getRemanProductComponentByIdService = async (id: string) => {
+export const getRPCByIdService = async (id: string) => {
     const newRPC = await RemanProductComponent.findById(id)
 
     if (!newRPC) throw new AppError("RemanProductCompoenntService not found", 404)
@@ -17,22 +17,12 @@ export const getRemanProductComponentByIdService = async (id: string) => {
     return newRPC
 }
 
-export const getAllRemanProductsComponents = async () => {
+export const getAllRPCService = async () => {
     const newRPC = await RemanProductComponent.find()
 
     console.log(newRPC);
 
     return await newRPC
-}
-
-export const getRemanProductCompoentByNameService = async (name: string) => {
-    const newRPC = await RemanProductComponent.find(
-        { "name": { "$regex": name, "$options": "i" } }
-    )
-
-    console.log(newRPC)
-
-    return newRPC
 }
 
 export const getRPCByComponentIdService = async (componentId: string) => {
@@ -56,7 +46,7 @@ export const getRPCByRemanProductIdService = async (remanProductId: string) => {
 }
 
 
-export const deleteRemanProductComponentService = async (id: string) => {
+export const deleteRPCService = async (id: string) => {
     const newRPC = await RemanProductComponent.findById(id)
 
 
@@ -68,7 +58,7 @@ export const deleteRemanProductComponentService = async (id: string) => {
     await newRPC.deleteOne()
 }
 
-export const patchRemanProductComponentService = async (payload: TRemanProductComponentUpdate, id: string) => {
+export const patchRPCService = async (payload: TRemanProductComponentUpdate, id: string) => {
     const newRPC = await RemanProductComponent.findById(id)
 
     

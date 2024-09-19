@@ -1,8 +1,9 @@
 import { Request, Response } from "express"
 import { creationRemanProductBodyService, deleteRemanProductBodyService, getAllRemanProductBodyService, getRemanProductBodyByIdService, getRPBByBodyIdService, getRPBByRemanProductIdService, patchRemanProductBodyService } from "../services/remanProductBodyService"
+import { creationRemanProductsService } from "../services/remanproductService"
 
 export const creationRPBController = async (req: Request, res: Response) => {
-    const service = await creationRemanProductBodyService(req.body)
+    const service = await (req.body)
     res.status(201).json(service)
 }
 
@@ -30,7 +31,7 @@ export const getAllRPBController = async (req: Request, res: Response) => {
     })
 
     queries.forEach(element =>{
-        if((element.param)) return element.service(element.param)
+        if((element.param)) return await element.service(element.param)
 
     })
 
