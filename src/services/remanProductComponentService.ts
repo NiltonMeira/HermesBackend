@@ -3,69 +3,79 @@ import { RemanProductComponent } from "../models/remanProductComponentModel"
 import { TRemanProductComponentCreation, TRemanProductComponentUpdate } from "../types/remanProductComponentType"
 
 export const creationRemanProductComponent = async (payload: TRemanProductComponentCreation) => {
-    const newRPB = new RemanProductComponent(payload)
-    console.log(newRPB)
-    return await newRPB.save()
+    const newRPC = new RemanProductComponent(payload)
+    console.log(newRPC)
+    return await newRPC.save()
 }
 
 export const getRemanProductComponentByIdService = async (id: string) => {
-    const newRPB = await RemanProductComponent.findById(id)
+    const newRPC = await RemanProductComponent.findById(id)
 
-    if (!newRPB) throw new AppError("RemanProductCompoenntService not found", 404)
+    if (!newRPC) throw new AppError("RemanProductCompoenntService not found", 404)
 
-    console.log(newRPB)
-    return newRPB
+    console.log(newRPC)
+    return newRPC
 }
 
 export const getAllRemanProductsComponents = async () => {
-    const newRPB = await RemanProductComponent.find()
+    const newRPC = await RemanProductComponent.find()
 
-    console.log(newRPB);
+    console.log(newRPC);
 
-    return await newRPB
+    return await newRPC
 }
 
 export const getRemanProductCompoentByNameService = async (name: string) => {
-    const newRPB = await RemanProductComponent.find(
+    const newRPC = await RemanProductComponent.find(
         { "name": { "$regex": name, "$options": "i" } }
     )
 
-    console.log(newRPB)
+    console.log(newRPC)
 
-    return newRPB
+    return newRPC
 }
 
-export const getRemanProducComponentByPartNumberService = async (partNumber: string) => {
-    const newRPB = await RemanProductComponent.find(
-        { "partNumber": { "$regex": partNumber, "$options": "i" } }
+export const getRPCByComponentIdService = async (componentId: string) => {
+    const newRPC = await RemanProductComponent.find(
+        { "compoenentId": { "$regex": componentId, "$options": "i" } }
     )
 
-    console.log(newRPB);
+    console.log(newRPC);
 
-    return newRPB
+    return newRPC
+}
+
+export const getRPCByRemanProductIdService = async (remanProductId: string) => {
+    const newRPC = await RemanProductComponent.find(
+        { "remanProductId": { "$regex": remanProductId, "$options": "i" } }
+    )
+
+    console.log(newRPC);
+
+    return newRPC
 }
 
 
 export const deleteRemanProductComponentService = async (id: string) => {
-    const newRPB = await RemanProductComponent.findById(id)
+    const newRPC = await RemanProductComponent.findById(id)
 
 
-    if (!newRPB) throw new AppError("RemanProductCompoenntService not found", 404)
+    if (!newRPC) throw new AppError("RemanProductCompoenntService not found", 404)
 
 
-    console.log(newRPB + "deleted");
+    console.log(newRPC + "deleted");
 
-    await newRPB.deleteOne()
+    await newRPC.deleteOne()
 }
 
 export const patchRemanProductComponentService = async (payload: TRemanProductComponentUpdate, id: string) => {
-    const newRPB = await RemanProductComponent.findById(id)
+    const newRPC = await RemanProductComponent.findById(id)
 
     
-    if (!newRPB) throw new AppError("RemanProductCompoenntService not found", 404)
+    if (!newRPC) throw new AppError("RemanProductCompoenntService not found", 404)
 
-    newRPB.set(payload)
+    newRPC.set(payload)
 
-    console.log(newRPB);
-    return newRPB
+    console.log(newRPC);
+    return newRPC
 }
