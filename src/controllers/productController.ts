@@ -12,7 +12,7 @@ export const getProductsByIdController = async (req: Request, res: Response) => 
 }
 
 export const getProductsController = async (req: Request, res: Response) => {
-    const query = await req.query.productid
+    const query = await req.query.productName
 
     const service = query ?
     await getProductByName(String(query)) :
