@@ -20,7 +20,7 @@ export const getCoresController = async (req: Request, res: Response) => {
     let queries: smartRequest[] = []
 
     queries.push({
-        "param": await req.query.familyIdId,
+        "param": await req.query.familyId,
         "service": getCoreByFamilyIdService
     })
 
