@@ -3,7 +3,7 @@ import {Schema} from "mongoose"
 export type TFamily = {
     id: string,
     name: string,
-    productid: Schema.Types.ObjectId,
+    productid: string,
     description: string
 }
 

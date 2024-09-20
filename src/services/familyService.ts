@@ -1,13 +1,18 @@
-import mongoose from "mongoose"
+import mongoose, { isValidObjectId } from "mongoose"
 import AppError from "../appError"
 import { Family } from "../models/familyModel"
 import { TFamilyCreation, TFamilyUpdate } from "../types/familyType"
 
 export const creationFamilyService = async (payload: TFamilyCreation) => {
+    try{
     const newFamily = new Family(payload)
+
+    const validate = await getFamilytByNameService(payload.name)
     console.log(newFamily);
-    
     return await newFamily.save()
+    } catch(err){
+        throw new AppError("Insert a valid product Id", 404)
+    }
 }
 
 export const getAllFamilysService = async () => {   
