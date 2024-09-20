@@ -1,6 +1,6 @@
 export type TBody = {
     id: string,
-    name: String,
+    name: string,
     description: String,
     partNumber: String,
     partNumberReman: String,

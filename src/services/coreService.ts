@@ -18,6 +18,8 @@ export const creationCoreService = async (payload: TCoreCreation) => {
 
 export const getAllCoreServices = async () => {
     const cores = await Core.find()
+
+    if(!Core) throw new AppError("Core not found", 404)
     
     console.log(cores);
     

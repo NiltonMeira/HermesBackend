@@ -5,15 +5,23 @@ import { tUserCreation } from "../types/userTypes"
 
 export const creationBodyService = async (payload: TBodyCreation) => {
     const newBody = new Body(payload)
+    const validate = await getBodyByNameService(payload.name)
+    if (validate.length > 0) throw new AppError("This body already Exists", 404)
+
     console.log(newBody)
-    return await newBody.save()
+
+    try {
+        return await newBody.save()
+    } catch (err) {
+        throw new AppError("Insert a valid reman product Id", 404)
+    }
 }
 
 export const getBodyByIdService = async (id: string) => {
     const body = await Body.findById(id)
 
-    if(!body) throw new AppError("Body not found", 404)
-    
+    if (!body) throw new AppError("Body not found", 404)
+
     console.log(body)
     return body
 }
@@ -22,7 +30,7 @@ export const getAllBodiesService = async () => {
     const bodies = await Body.find()
 
     console.log(bodies);
-    
+
     return await bodies
 }
 
@@ -38,7 +46,7 @@ export const getBodyByNameService = async (name: string) => {
 
 export const getBodyByPartNumberService = async (partNumber: string) => {
     const bodies = await Body.find(
-        {"partNumber": {"$regex": partNumber, "$options": "i"}}
+        { "partNumber": { "$regex": partNumber, "$options": "i" } }
     )
 
     console.log(bodies);
@@ -49,17 +57,17 @@ export const getBodyByPartNumberService = async (partNumber: string) => {
 export const deleteBodyService = async (id: string) => {
     const body = await Body.findById(id)
 
-    if(!body) throw new AppError("Body not found", 404)
+    if (!body) throw new AppError("Body not found", 404)
 
     console.log(body.name + "deleted");
-    
+
     await body.deleteOne()
 }
 
 export const patchBodyService = async (payload: tUserCreation, id: string) => {
     const body = await Body.findById(id)
 
-    if(!body) throw new AppError("Body not found", 404)
+    if (!body) throw new AppError("Body not found", 404)
 
     body.set(payload)
 
