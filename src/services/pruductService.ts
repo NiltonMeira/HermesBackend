@@ -4,7 +4,8 @@ import { TProductCreation, TProductUpdate } from "../types/productType";
 
 export const creationProductService = async (payload: TProductCreation) => {
     const newProduct = new Product(payload)
-
+    const validate = await getProductByName(payload.name)
+    if(validate.length > 0) throw new AppError("This product already Exists", 404)
     console.log(newProduct);
     return await newProduct.save()
 }

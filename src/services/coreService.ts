@@ -2,7 +2,7 @@ import AppError from "../appError";
 import { Core } from "../models/coreModel";
 import { TCoreCreation, TCoreUpdate } from "../types/coreType";
 
-export const creationCoreService = async (payload: TCoreCreation) => {
+export const creationCoreService = async (payload: TCoreCreation) => {  
     const newCore = new Core(payload)
     return await newCore.save()
 }
