@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { creationFamilyService, deleteFamilyService, getAllFamilysService, getFamilyByIdService, getFamilytByNameService, patchFamilyService } from "../services/familyService";
+import { creationFamilyService, deleteFamilyService, getAllFamilysService, getFamilyByIdService, getFamilyByProductIdService, getFamilytByNameService, patchFamilyService } from "../services/familyService";
 
 export const creationFamilyController = async (req: Request, res: Response) => {
     const service = await creationFamilyService(req.body)
@@ -12,12 +12,37 @@ export const getFamilyByIdController = async (req: Request, res: Response) => {
 }
 
 export const getFamilyController = async (req: Request, res: Response) => {
-    const query = await req.query.familyId
+    interface smartRequest {
+        param: any
+        service: Function
+    }
 
-    const service = query ?
-    await getFamilytByNameService(String(query)) :
-    await getAllFamilysService()
+    let queries: smartRequest[] = []
 
+    queries.push({
+        "param": await req.query.productId,
+        "service": getFamilyByProductIdService
+    })
+
+    queries.push({
+        "param": await req.query.familyName,
+        "service": getFamilytByNameService
+    })
+
+    console.log(queries);
+    
+
+    for (const element of queries) {
+        console.log(element.param);
+        
+        if (element.param) {
+            const service = await element.service(String(element.param))
+            
+            return res.status(200).json(service)  
+        }
+    }
+
+    const service = await getAllFamilysService()
     res.status(200).json(service)
 }
 

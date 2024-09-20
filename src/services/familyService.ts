@@ -9,7 +9,8 @@ export const creationFamilyService = async (payload: TFamilyCreation) => {
     return await newFamily.save()
 }
 
-export const getAllFamilysService = async () => {
+export const getAllFamilysService = async () => {   
+    
     const family = await Family.find()
     console.log(family);
     return family
@@ -38,7 +39,7 @@ export const getFamilytByNameService = async (name: string) => {
 
 }
 
-export const getFamilyByProductId = async (familyID: string) => {
+export const getFamilyByProductIdService = async (familyID: string) => {
     const familys = await Family.find(
         { "familyID": { "$regex": familyID, "$options": "i" } }
     )
