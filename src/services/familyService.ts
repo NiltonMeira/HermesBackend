@@ -1,3 +1,4 @@
+import mongoose from "mongoose"
 import AppError from "../appError"
 import { Family } from "../models/familyModel"
 import { TFamilyCreation, TFamilyUpdate } from "../types/familyType"
@@ -39,15 +40,17 @@ export const getFamilytByNameService = async (name: string) => {
 
 }
 
-export const getFamilyByProductIdService = async (familyID: string) => {
-    const familys = await Family.find(
-        { "familyID": { "$regex": familyID, "$options": "i" } }
-    )
+export const getFamilyByProductIdService = async (productId: string) => {
+
+    if (!mongoose.Types.ObjectId.isValid(productId)) throw new AppError("Invalid product id", 400)
+        
+    const objectId = new mongoose.Types.ObjectId(productId);
+
+    const familys = await Family.find({ productId: objectId });
     
-    if(!familys) throw new AppError("Family not found", 404)
+    if (!familys || familys.length === 0) throw new AppError("Family not found", 404);
     
-    console.log(familys);
-    
+    console.log(familys); 
     return familys
 }
 
