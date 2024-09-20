@@ -6,7 +6,7 @@ import { TCoreCreation, TCoreUpdate } from "../types/coreType";
 export const creationCoreService = async (payload: TCoreCreation) => {
     const newCore = new Core(payload)
     const validate = await getCoreByNameService(payload.name)
-    if (validate.length > 0) throw new AppError("This product already Exists", 404)
+    if (validate.length > 0) throw new AppError("This core already Exists", 404)
     console.log(newCore);
 
     try {
@@ -17,7 +17,11 @@ export const creationCoreService = async (payload: TCoreCreation) => {
 }
 
 export const getAllCoreServices = async () => {
-    return await Core.find()
+    const cores = await Core.find()
+    
+    console.log(cores);
+    
+    return cores
 }
 
 export const getCoreByIdService = async (id: string) => {
@@ -25,6 +29,8 @@ export const getCoreByIdService = async (id: string) => {
 
     if (!core) throw new AppError("Core not found", 404)
 
+    console.log(core);
+        
     return core
 }
 
@@ -35,6 +41,8 @@ export const getCoreByNameService = async (name: string) => {
 
     if (!cores) throw new AppError("Core not found", 404)
 
+    console.log(cores);
+    
     return cores
 }
 

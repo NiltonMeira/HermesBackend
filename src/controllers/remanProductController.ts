@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { creationRemanProductsService, deleteRemanProductService, getAllRemanProductServices, getRemanProductByIdService, getRemanProductByNameService, patchRemanProductService } from "../services/remanproductService";
+import { creationRemanProductsService, deleteRemanProductService, getAllRemanProductServices, getRemanProductByCoreIdService, getRemanProductByIdService, getRemanProductByNameService, patchRemanProductService } from "../services/remanproductService";
 
 export const creationRemanProductController = async (req: Request, res: Response) => {
     const service = await creationRemanProductsService(req.body)
@@ -7,12 +7,37 @@ export const creationRemanProductController = async (req: Request, res: Response
 }
 
 export const getRemanProductController = async (req: Request, res: Response) => {
-    const query = req.query.remanproductName
+    interface smartRequest {
+        param: any
+        service: Function
+    }
 
-    const service = query ?
-    getRemanProductByNameService(query as string) :
-    getAllRemanProductServices()
+    let queries: smartRequest[] = []
 
+    queries.push({
+        "param": await req.query.coreId,
+        "service": getRemanProductByCoreIdService
+    })
+
+    queries.push({
+        "param": await req.query.remanName,
+        "service": getRemanProductByNameService
+    })
+
+    console.log(queries);
+    
+
+    for (const element of queries) {
+        console.log(element.param);
+        
+        if (element.param) {
+            const service = await element.service(String(element.param))
+            
+            return res.status(200).json(service)  
+        }
+    }
+
+    const service = await getAllRemanProductServices()
     res.status(200).json(service)
 
 }
