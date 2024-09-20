@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { creationCoreService, deleteCoreService, getAllCoreServices, getCoreByIdService, getCoreByNameService, patchCoreService } from "../services/coreService";
+import { creationCoreService, deleteCoreService, getAllCoreServices, getCoreByFamilyIdService, getCoreByIdService, getCoreByNameService, patchCoreService } from "../services/coreService";
 
 export const creationCoreController = async (req: Request, res: Response) => {
     const service = await creationCoreService(req.body)
@@ -12,12 +12,37 @@ export const getCoreByIdController = async (req: Request, res: Response) => {
 }
 
 export const getCoresController = async (req: Request, res: Response) => {
-    const query = await req.query.nameId
+    interface smartRequest {
+        param: any
+        service: Function
+    }
 
-    const service = query ?
-    getCoreByNameService(query as string):
-    getAllCoreServices()
+    let queries: smartRequest[] = []
 
+    queries.push({
+        "param": await req.query.familyIdId,
+        "service": getCoreByFamilyIdService
+    })
+
+    queries.push({
+        "param": await req.query.coreName,
+        "service": getCoreByNameService
+    })
+
+    console.log(queries);
+    
+
+    for (const element of queries) {
+        console.log(element.param);
+        
+        if (element.param) {
+            const service = await element.service(String(element.param))
+            
+            return res.status(200).json(service)  
+        }
+    }
+
+    const service = await getAllCoreServices()
     res.status(200).json(service)
 }
 
