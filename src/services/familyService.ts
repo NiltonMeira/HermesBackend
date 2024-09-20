@@ -4,11 +4,12 @@ import { Family } from "../models/familyModel"
 import { TFamilyCreation, TFamilyUpdate } from "../types/familyType"
 
 export const creationFamilyService = async (payload: TFamilyCreation) => {
-    try{
+    
     const newFamily = new Family(payload)
-
     const validate = await getFamilytByNameService(payload.name)
+    if(validate.length > 0) throw new AppError ("This product already exists", 404)
     console.log(newFamily);
+    try{
     return await newFamily.save()
     } catch(err){
         throw new AppError("Insert a valid product Id", 404)
