@@ -1,7 +1,9 @@
+import {Schema} from "mongoose"
+
 export type TFamily = {
     id: string,
     name: string,
-    productid: string,
+    productid: Schema.Types.ObjectId,
     description: string
 }
 
