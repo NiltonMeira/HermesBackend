@@ -6,7 +6,7 @@ import { TFamilyCreation, TFamilyUpdate } from "../types/familyType"
 export const creationFamilyService = async (payload: TFamilyCreation) => {
     
     const newFamily = new Family(payload)
-    
+
     const validate = await getFamilytByNameService(payload.name)
     if(validate.length > 0) throw new AppError ("This product already exists", 404)
     console.log(newFamily);
@@ -49,9 +49,7 @@ export const getFamilytByNameService = async (name: string) => {
 }
 
 export const getFamilyByProductIdService = async (productId: string) => {
-
-    if (!mongoose.Types.ObjectId.isValid(productId)) throw new AppError("Invalid product id", 400)
-        
+  
     const objectId = new mongoose.Types.ObjectId(productId);
 
     const familys = await Family.find({ productId: objectId });
