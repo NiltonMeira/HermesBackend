@@ -12,7 +12,7 @@ export const validateToken = async (req: Request, res: Response, next: NextFunct
     verify(token, "wN51=4vrO4j;1wjl6pQSXh=I&9k&6Zz4YtqG9,1M=03TI,dD", (error: any, decoded: any) => {
         if(error) throw new AppError(error.message, 401)
 
-        res.locals.userId = decoded.sub //send this value in the middleware
+        res.locals.userId = decoded.sub //send this value in the others middlewares
         res.locals.email = decoded.email
         res.locals.role = decoded.role
     }) 
