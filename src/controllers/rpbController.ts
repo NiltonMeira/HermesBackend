@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { creationRemanProductBodyService, deleteRemanProductBodyService, getAllRemanProductBodyService, getRemanProductBodyByIdService, getRPBByBodyIdService, getRPBByRemanProductIdService, patchRemanProductBodyService } from "../services/remanProductBodyService"
+import { creationRemanProductBodyService, deleteRemanProductBodyService, getAllRemanProductBodyService, getRemanProductBodyByIdService, getRPBByBodyIdService, getRPBByRemanProductIdService, patchRemanProductBodyService } from "../services/rpbService"
 import { creationRemanProductsService } from "../services/remanproductService"
 
 export const creationRPBController = async (req: Request, res: Response) => {

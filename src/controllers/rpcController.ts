@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
-import { getAllRemanProductBodyService, getRemanProductBodyByIdService, getRPBByBodyIdService, getRPBByRemanProductIdService, patchRemanProductBodyService } from "../services/remanProductBodyService"
+import { getAllRemanProductBodyService, getRemanProductBodyByIdService, getRPBByBodyIdService, getRPBByRemanProductIdService, patchRemanProductBodyService } from "../services/rpbService"
 import { creationRPBController } from "./rpbController"
-import { creationRPCService, deleteRPCService, getRPCByComponentIdService, getRPCByIdService, getRPCByRemanProductIdService, patchRPCService } from "../services/remanProductComponentService"
+import { creationRPCService, deleteRPCService, getRPCByComponentIdService, getRPCByIdService, getRPCByRemanProductIdService, patchRPCService } from "../services/rpcService"
 
 export const creationRPCController = async (req: Request, res: Response) => {
     const service = await creationRPCService(req.body)
