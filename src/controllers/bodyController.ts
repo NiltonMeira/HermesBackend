@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { creationBodyService, deleteBodyService, getAllBodiesService, getBodyByIdService, getBodyByNameService, getBodyByPartNumberService, patchBodyService } from "../services/bodyService"
+import { creationBodyService, deleteBodyService, getAllBodiesService, getBodyByIdService, getBodyByNameService, getBodyByPartNumberService, getBodyByRPIdService, patchBodyService } from "../services/bodyService"
 
 export const creationBodycontroller = async (req: Request, res: Response) => {
     const service =  await creationBodyService(req.body)
@@ -12,18 +12,40 @@ export const getBodyByIdController = async (req: Request, res: Response) => {
 }
 
 export const getBodiesController = async (req: Request, res: Response) => {
-    const query = req.query.id
+    interface smartRequest {
+        param: any
+        service: Function
+    }
 
-    const service = query ?
-    getBodyByNameService(query as string) :
-    getAllBodiesService()
+    let queries: smartRequest[] = []
 
-    res.status(200).json(service)
-}
+    queries.push({
+        "param": await req.query.remanProductId,
+        "service": getBodyByRPIdService
+    })
 
-export const getBodiesByPartNumberController = async (req: Request, res: Response) => {
-    const service = getBodyByPartNumberService(req.query.partNumber as string)
-    res.status(200).json(service)
+    queries.push({
+        "param": await req.query.bodyName,
+        "service": getBodyByNameService
+    })
+
+    queries.push({
+        "param": await req.query.partNumber,
+        "service": getBodyByPartNumberService
+    })
+
+    console.log(queries);
+    
+
+    for (const element of queries) {
+        console.log(element.param);
+        
+        if (element.param) {
+            const service = await element.service(String(element.param))
+            
+            return res.status(200).json(service)  
+        }
+    }
 }
 
 export const deleteBodyController = async (req: Request, res: Response) => {
