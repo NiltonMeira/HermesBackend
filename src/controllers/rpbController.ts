@@ -1,6 +1,5 @@
 import { Request, Response } from "express"
-import { creationRemanProductBodyService, deleteRemanProductBodyService, getAllRemanProductBodyService, getRemanProductBodyByIdService, getRPBByBodyIdService, getRPBByRemanProductIdService, patchRemanProductBodyService } from "../services/rpbService"
-import { creationRemanProductsService } from "../services/remanproductService"
+import { deleteRemanProductBodyService, getAllRemanProductBodyService, getRemanProductBodyByIdService, getRPBByBodyIdService, getRPBByRemanProductIdService, patchRemanProductBodyService } from "../services/rpbService"
 
 export const creationRPBController = async (req: Request, res: Response) => {
     const service = await (req.body)
@@ -14,28 +13,37 @@ export const getRPBByIdController = async (req: Request, res: Response) => {
 
 export const getAllRPBController = async (req: Request, res: Response) => {
     interface smartRequest {
-        param: string,
+        param: any
         service: Function
     }
 
     let queries: smartRequest[] = []
 
     queries.push({
-        "param": String(await req.query.bodyId),
-        "service": getRPBByBodyIdService
-    })
-
-    queries.push({
-        "param": String(await req.query.remanProductId),
+        "param": await req.query.remanProductId,
         "service": getRPBByRemanProductIdService
     })
 
-    queries.forEach(element =>{
-        if((element.param)) return element.service(element.param)
-
+    queries.push({
+        "param": await req.query.bodyId,
+        "service": getRPBByBodyIdService
     })
 
-    return getAllRemanProductBodyService()
+    console.log(queries);
+    
+
+    for (const element of queries) {
+        console.log(element.param);
+        
+        if (element.param) {
+            const service = await element.service(String(element.param))
+            
+            return res.status(200).json(service)  
+        }
+    }
+
+    const service = await getAllRemanProductBodyService()
+    res.status(200).json(service)
 }
 
 export const deleteRPBController = async (req: Request, res: Response) => {
