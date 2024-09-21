@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
 import AppError from "../appError"
 import { Body } from "../models/bodyModel"
-import { TBodyCreation } from "../types/bodyType"
+import { TBodyCreation, TBodyUpdate } from "../types/bodyType"
 import { tUserCreation } from "../types/userTypes"
 import { RemanProduct } from "../models/remanproductModel"
 
@@ -56,16 +56,6 @@ export const getBodyByPartNumberService = async (partNumber: string) => {
     return bodies
 }
 
-export const getBodyByRPIdService = async (rpId: string) => {
-    const objectId = new mongoose.Types.ObjectId(rpId)
-
-    const bodies = await RemanProduct.find({remanProductId: objectId})
-
-    if(!bodies || bodies.length === 0) throw new AppError("Body not found", 404)
-
-    console.log(bodies);
-    return bodies
-}
 
 export const deleteBodyService = async (id: string) => {
     const body = await Body.findById(id)
@@ -77,13 +67,18 @@ export const deleteBodyService = async (id: string) => {
     await body.deleteOne()
 }
 
-export const patchBodyService = async (payload: tUserCreation, id: string) => {
+export const patchBodyService = async (payload: TBodyUpdate, id: string) => {
+    console.log(payload);
+    
     const body = await Body.findById(id)
-
+    console.log(body);
+    
     if (!body) throw new AppError("Body not found", 404)
 
     body.set(payload)
+    await body.save()
 
     console.log(body);
+
     return body
 }

@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { creationBodyService, deleteBodyService, getAllBodiesService, getBodyByIdService, getBodyByNameService, getBodyByPartNumberService, getBodyByRPIdService, patchBodyService } from "../services/bodyService"
+import { creationBodyService, deleteBodyService, getAllBodiesService, getBodyByIdService, getBodyByNameService, getBodyByPartNumberService, patchBodyService } from "../services/bodyService"
 
 export const creationBodycontroller = async (req: Request, res: Response) => {
     const service =  await creationBodyService(req.body)
@@ -18,12 +18,7 @@ export const getBodiesController = async (req: Request, res: Response) => {
     }
 
     let queries: smartRequest[] = []
-
-    queries.push({
-        "param": await req.query.remanProductId,
-        "service": getBodyByRPIdService
-    })
-
+    
     queries.push({
         "param": await req.query.bodyName,
         "service": getBodyByNameService
@@ -46,6 +41,9 @@ export const getBodiesController = async (req: Request, res: Response) => {
             return res.status(200).json(service)  
         }
     }
+
+    const service = await getAllBodiesService()
+    res.status(200).json(service)
 }
 
 export const deleteBodyController = async (req: Request, res: Response) => {
