@@ -2,8 +2,6 @@ import mongoose from "mongoose"
 import AppError from "../appError"
 import { Body } from "../models/bodyModel"
 import { TBodyCreation, TBodyUpdate } from "../types/bodyType"
-import { tUserCreation } from "../types/userTypes"
-import { RemanProduct } from "../models/remanproductModel"
 
 export const creationBodyService = async (payload: TBodyCreation) => {
     const newBody = new Body(payload)
@@ -11,12 +9,8 @@ export const creationBodyService = async (payload: TBodyCreation) => {
     if (validate.length > 0) throw new AppError("This body already Exists", 404)
 
     console.log(newBody)
-
-    try {
-        return await newBody.save()
-    } catch (err) {
-        throw new AppError("Insert a valid reman product Id", 404)
-    }
+    return await newBody.save()
+    
 }
 
 export const getBodyByIdService = async (id: string) => {

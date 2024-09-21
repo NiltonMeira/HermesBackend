@@ -8,17 +8,41 @@ export const creationComponentController = async (req: Request, res: Response) =
 }
 
 export const getComponentByIdController = async(req: Request, res: Response) => {
-    const service = getComponentByIdService(req.params.id)
+    const service = await getComponentByIdService(req.params.id)
     res.status(200).json(service)
 }
 
 export const getComponentsController = async (req: Request, res: Response) => {
-    const query = await req.query.componentName
+    interface smartRequest {
+        param: any
+        service: Function
+    }
 
-    const service = query ?
-    getComponentByNameService(query as string) :
-    getAllComponentsService()
+    let queries: smartRequest[] = []
+    
+    queries.push({
+        "param": await req.query.componentName,
+        "service": getComponentByNameService
+    })
 
+    queries.push({
+        "param": await req.query.partNumber,
+        "service": getComponentsByPartNumberService
+    })
+
+    console.log(queries);
+
+    for (const element of queries) {
+        console.log(element.param);
+        
+        if (element.param) {
+            const service = await element.service(String(element.param))
+            
+            return res.status(200).json(service)  
+        }
+    }
+
+    const service = await getAllComponentsService()
     res.status(200).json(service)
 }
 

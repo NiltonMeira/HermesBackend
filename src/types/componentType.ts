@@ -1,9 +1,9 @@
 export type TComponent = {
     id: string,
-    name: String,
-    description: String,
-    partNumber: String,
-    partNumberReman: String,
+    name: string,
+    description: string,
+    partNumber: string,
+    partNumberReman: string,
     isReman: Boolean
 }
 

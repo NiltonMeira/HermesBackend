@@ -4,6 +4,10 @@ import { TComponentCreation, TComponentUpdate } from "../types/componentType"
 
 export const creationComponentService = async (payload: TComponentCreation) => {
     const newComponent = new Component(payload)
+    const validate = await getComponentByNameService(payload.name)
+    if (validate.length > 0) throw new AppError("Component not found", 404)
+
+    console.log(newComponent);
     return await newComponent.save()
 }
 
@@ -11,6 +15,8 @@ export const getComponentByIdService = async (id: string) => {
     const component = await Component.findById(id)
 
     if (!component) throw new AppError("Component not found", 404)
+
+    console.log(component);
     return component
 }
 
@@ -18,7 +24,8 @@ export const getAllComponentsService = async () => {
     const components = await Component.find()
 
     if (!components) throw new AppError("Component not found", 404)
-
+    
+    console.log(components);
     return components
 }
 
@@ -28,7 +35,8 @@ export const getComponentByNameService = async (name: string) => {
     )
 
     if (!components) throw new AppError("Component not found", 404)
-
+    
+    console.log(components);
     return components
 }
 
@@ -39,6 +47,8 @@ export const getComponentsByPartNumberService = async (partNUmber: string) => {
     )
 
     if (!components) throw new AppError("Component not found", 404)
+
+    console.log(components);
 
     return components
 
@@ -61,5 +71,5 @@ export const patchComponentService = async (payload: TComponentUpdate, id: strin
 
     component.set(payload)
     
-    return component.save()
+    return await component.save()
 }
