@@ -30,7 +30,7 @@ app.use("/api/familys", familyRouter)
 app.use("/api/cores", coreRoutes)
 app.use("/api/remanProduct", remanProductRouter)
 app.use("api/components", componentRoutes )
-app.use("api/components", bodyRouter )
+app.use("api/bodies", bodyRouter )
 app.use("api/rpb", rpbRouter)
 app.use("api/rpc", rpcRouter)
 
