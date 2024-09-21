@@ -17,5 +17,7 @@ export const validateToken = async (req: Request, res: Response, next: NextFunct
         res.locals.role = decoded.role
     }) 
 
+    console.log("Valid token");
+
     next()
 }
