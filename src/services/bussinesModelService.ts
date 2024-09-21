@@ -48,7 +48,7 @@ export const getBussinesModelByCustumerService = async (custumer: string) => {
     return bussinesModel
 }
 
-export const deleteBodyService = async (id: string) => {
+export const deleteBussinesModelService = async (id: string) => {
     const bussinesModel = await BussinesModel.findById(id)
 
     if (!bussinesModel) throw new AppError("bussinesModel not found", 404)
@@ -58,7 +58,7 @@ export const deleteBodyService = async (id: string) => {
     await bussinesModel.deleteOne()
 }
 
-export const patchBodyService = async (payload: TBussinesModelUpdate, id: string) => {
+export const patchBussinesModelService = async (payload: TBussinesModelUpdate, id: string) => {
     console.log(payload);
     
     const bussinesModel = await BussinesModel.findById(id)
