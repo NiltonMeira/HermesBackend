@@ -5,3 +5,5 @@ const BussinessModelSchema = new mongoose.Schema({
     custumer: String,
     description: String
 })
+
+export const BussinesModel = mongoose.model('BussinesModel', BussinessModelSchema)
