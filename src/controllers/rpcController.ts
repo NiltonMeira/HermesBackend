@@ -1,7 +1,5 @@
 import { Request, Response } from "express"
-import { getAllRemanProductBodyService, getRemanProductBodyByIdService, getRPBByBodyIdService, getRPBByRemanProductIdService, patchRemanProductBodyService } from "../services/rpbService"
-import { creationRPBController } from "./rpbController"
-import { creationRPCService, deleteRPCService, getRPCByComponentIdService, getRPCByIdService, getRPCByRemanProductIdService, patchRPCService } from "../services/rpcService"
+import { creationRPCService, deleteRPCService, getAllRPCService, getRPCByComponentIdService, getRPCByIdService, getRPCByRemanProductIdService, patchRPCService } from "../services/rpcService"
 
 export const creationRPCController = async (req: Request, res: Response) => {
     const service = await creationRPCService(req.body)
@@ -15,28 +13,37 @@ export const getRPCByIdController = async (req: Request, res: Response) => {
 
 export const getRPCController = async (req: Request, res: Response) => {
     interface smartRequest {
-        param: string,
+        param: any
         service: Function
     }
 
     let queries: smartRequest[] = []
 
     queries.push({
-        "param": String(await req.query.compoenentIdId),
-        "service": getRPCByComponentIdService
-    })
-
-    queries.push({
-        "param": String(await req.query.remanProductId),
+        "param": await req.query.remanProductId,
         "service": getRPCByRemanProductIdService
     })
 
-    queries.forEach(element =>{
-        if((element.param)) return element.service(element.param)
-
+    queries.push({
+        "param": await req.query.componentId,
+        "service": getRPCByComponentIdService
     })
 
-    return getAllRemanProductBodyService()
+    console.log(queries);
+    
+
+    for (const element of queries) {
+        console.log(element.param);
+        
+        if (element.param) {
+            const service = await element.service(String(element.param))
+            
+            return res.status(200).json(service)  
+        }
+    }
+
+    const service = await getAllRPCService()
+    res.status(200).json(service)
 }
 
 export const deleteRPCController = async (req: Request, res: Response) => {
