@@ -8,3 +8,6 @@ export type TQueue = {
     batchQuantity: Number,
     BodiesQuantity: Number
 }
+
+export type TQueueCreation = Omit<TQueue, "id">
+export type TQueueUpdate = Partial<TQueueCreation>
