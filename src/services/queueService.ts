@@ -2,7 +2,7 @@ import { Queue } from './../models/queueModel';
 import AppError from "../appError";
 import { TQueueCreation, TQueueUpdate } from "../types/queueType";
 
-export const creationQueueSercie = async (payload: TQueueCreation) => {
+export const creationQueueService = async (payload: TQueueCreation) => {
     const newQueue = new Queue(payload)
 
     payload.position = await findPosition(payload)
@@ -52,7 +52,7 @@ export const getQueueByPartNumberService = async (partNumber: string) => {
     
 }
 
-export const getQueueByPartBussinesModel = async (bussinesModel: string) => {
+export const getQueueByBussinesModel = async (bussinesModel: string) => {
     const queue = await Queue.find(
        { "bussinesModel": { "$regex": bussinesModel, "$options": "i" } }
     )
@@ -64,7 +64,7 @@ export const getQueueByPartBussinesModel = async (bussinesModel: string) => {
     return queue   
 }
 
-export const deletQueueService = async (id: string) => {
+export const deleteQueueService = async (id: string) => {
     const queue = await Queue.findById(id)
     if(!queue) throw new AppError("Queue not found", 404)
     console.log(queue);
