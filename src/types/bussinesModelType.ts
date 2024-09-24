@@ -1,7 +1,7 @@
 export type TBussinesModel = {
     id: string,
     name: string,
-    custumer: string,
+    costumer: string,
     description: String
 }
 
