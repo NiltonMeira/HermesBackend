@@ -16,6 +16,9 @@ export const authService = async (payload: TLogin) => {
     if (!bycrypt.compareSync(payload.password, user.password!)) {
         throw new AppError("Password incorrect", 401);
     }
+    
+    console.log("login realizado");
+    
 
     return sign(
         { email: user.email, role: user.role },

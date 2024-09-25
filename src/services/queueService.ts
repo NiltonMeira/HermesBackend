@@ -20,6 +20,15 @@ export const getQueueByIdService = async (id: string) => {
     
 }
 
+export const getAllQueuesService = async () => {
+    const queues = Queue.find()
+
+    console.log(queues);
+
+    return await queues
+    
+}
+
 export const findPosition = async (payload: TQueueCreation) => {
     const queues = await Queue.find()
     let position
