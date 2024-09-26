@@ -9,3 +9,5 @@ const OperationBodySchema = new mongoose.Schema({
     NPK: Number,
     Quantity: Number
 })
+
+export const Operation = mongoose.model('Operation', OperationBodySchema)

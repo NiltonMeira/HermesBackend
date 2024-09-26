@@ -1,7 +1,7 @@
 export type TOperation = {
     id: string,
     bodyId: string,
-    queryId: string,
+    bussinesModelId: string,
     partNumber: string,
     type: boolean,
     Date: Date,
