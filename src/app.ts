@@ -13,6 +13,7 @@ import bodyRouter from "./routes/bodyRoutes"
 import rpbRouter from "./routes/rpbRoutes"
 import rpcRouter from "./routes/rpcRoutes"
 import bussinesModelRouter from "./routes/bussinesModelRoutes"
+import queueRouter from "./routes/queueRoutes"
 
 const app = express()
 
@@ -35,6 +36,7 @@ app.use("/api/bodies", bodyRouter )
 app.use("/api/rpb", rpbRouter)
 app.use("/api/rpc", rpcRouter)
 app.use("/api/bm", bussinesModelRouter)
+app.use("api/queue", queueRouter)
 
 
 app.use(handleError)
