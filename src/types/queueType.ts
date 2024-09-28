@@ -1,6 +1,7 @@
 export type TQueue = {
     id: string,
     bussinesModelId: string,
+    bodyId : string
     position: Number,
     partNumber: string,
     npk: Number,

@@ -62,6 +62,15 @@ export const getQueueByBussinesModel = async (bussinesModel: string) => {
     return queue   
 }
 
+export const getQueueByPositionService = async (position: number) => {
+    const queue = await Queue.find({position: position})
+
+    if(!queue) throw new AppError("Queue not found", 404)
+
+    console.log(queue)
+    return queue 
+}
+
 export const deleteQueueService = async (id: string) => {
     const queue = await Queue.findById(id)
     if(!queue) throw new AppError("Queue not found", 404)
