@@ -1,21 +1,23 @@
-import { BussinesModel } from './../models/businessModelModel';
-import { Query } from "mongoose"
 import { Operation } from "../models/operationModel"
-import { Queue } from "../models/queueModel"
+import { Queue } from "../models/queueModel";
 import { TOperationCreation } from "../types/operationType"
 import { TQueueCreation } from "../types/queueType"
 import { creationQueueService, getQueueByPositionService } from './queueService';
 
 export const creationOperationService = async (payload: TOperationCreation) => {
     const position = await findQueue(payload.partNumber, payload.bussinesModelId)
+    let queue
 
-    let queue = await getQueueByPositionService(position)
+    try{
+        queue = await getQueueByPositionService(position)
 
-    if(!queue)  queue = await newQueue()
+    } catch(err){
+        queue = await newQueue(payload)
+    } 
+
 
     const newOperation = new Operation(payload)
-
-
+    console.log(queue);
 }
 
 export const findQueue = async (partNumber: string, bussinesModelId: string ) => {
@@ -43,7 +45,18 @@ export const findQueue = async (partNumber: string, bussinesModelId: string ) =>
 }
 
 export const newQueue = async(payload: TOperationCreation) => {
+    const queueData: TQueueCreation = {
+        bodyId: payload.bodyId,
+        bussinesModelId: payload.bussinesModelId,
+        partNumber: payload.partNumber,
+        position: 0,
+        npk: payload.NPK,
+        capacityBatch: 7,
+        batchQuantity: 0,
+        BodiesQuantity: 0
+    }
 
+    return creationQueueService(queueData)
 }
 
 
