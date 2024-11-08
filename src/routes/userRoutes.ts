@@ -6,7 +6,7 @@ import { validateOwnUser } from '../middlewares/validateOwnUser';
 
 const userRouter = express.Router()
 
-userRouter.post('',validateToken, validateAdm,creationUserController)
+userRouter.post('',creationUserController)
 userRouter.get('', validateToken, validateAdm, getUsersController)
 userRouter.get("/:id",validateToken, validateAdm, getUserByIdController)
 userRouter.delete("/:id",validateToken, validateAdm, deleteUserController)
