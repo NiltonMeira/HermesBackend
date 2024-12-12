@@ -7,10 +7,10 @@ import { validateOperator } from '../middlewares/validateOperator';
 
 const productRouter = express.Router()
 
-productRouter.post('',validateToken, validatePlanner, creationProductController)
-productRouter.get('',validateToken, validateOperator, getProductsController)
-productRouter.get('/:id',validateToken, validateOperator, getProductsByIdController)
-productRouter.delete('/:id',validateToken, validateAdm, deleteProductsController)
-productRouter.patch('/:id',validateToken, validateAdm, patchProductController)
+productRouter.post('', creationProductController)
+productRouter.get('', getProductsController)
+productRouter.get('/:id', getProductsByIdController)
+productRouter.delete('/:id', deleteProductsController)
+productRouter.patch('/:id', patchProductController)
 
 export default productRouter

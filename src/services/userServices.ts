@@ -12,7 +12,7 @@ export const creationUserService = async(payload: tUserCreation) => {
     payload.password = await hashPassword(payload.password);
 
     const newUser = new User(payload)
-    newUser.role = 3
+    newUser.role = 1
 
     console.log(newUser);
      

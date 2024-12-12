@@ -7,9 +7,9 @@ import { validateOwnUser } from '../middlewares/validateOwnUser';
 const userRouter = express.Router()
 
 userRouter.post('',creationUserController)
-userRouter.get('', validateToken, validateAdm, getUsersController)
-userRouter.get("/:id",validateToken, validateAdm, getUserByIdController)
-userRouter.delete("/:id",validateToken, validateAdm, deleteUserController)
-userRouter.patch("/:id",validateToken, validateOwnUser, patchUserController)
+userRouter.get('', getUsersController)
+userRouter.get("/:id", getUserByIdController)
+userRouter.delete("/:id", deleteUserController)
+userRouter.patch("/:id", patchUserController)
 
 export default userRouter
